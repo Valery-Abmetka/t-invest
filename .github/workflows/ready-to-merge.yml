@@ -1,0 +1,29 @@
+name: ready to merge
+run-name: GitHub Actions 🚀
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Staring Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: npm install
+      - name: Run ESLint
+        run: npm run lint
+      - name: Run prettier
+        run: npm run format
+      - name: Run Test
+        run: npm run test
