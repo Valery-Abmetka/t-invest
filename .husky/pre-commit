@@ -1,0 +1,19 @@
+npx lint-staged --concurrent false
+
+yarn tsc
+if [ $? -ne 0 ]; then
+    echo "Error: TypeScript compilation failed"
+    exit 1
+fi
+
+yarn lint
+if [ $? -ne 0 ]; then
+    echo "Error: linting failed"
+    exit 1
+fi
+
+yarn test
+if [ $? -ne 0 ]; then
+    echo "Error: Tests failed"
+    exit 1
+fi
